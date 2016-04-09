@@ -598,9 +598,7 @@ namespace SharpKeys
       base.OnMove(e);
 
       // save the current window position/size whenever moved
-      if (WindowState == FormWindowState.Normal) {
-        m_rcWindow = DesktopBounds;
-      }
+      SaveWindowPosition();
     }
 
     protected override void OnResize(EventArgs e) {
@@ -611,13 +609,19 @@ namespace SharpKeys
       lvcTo.Width = lvcFrom.Width - 2;
 
       // save the current window position/size whenever moved
-      if (WindowState == FormWindowState.Normal) {
-        m_rcWindow = DesktopBounds;
-      }
+      SaveWindowPosition();
     }
 
-    
-    // Other Events
+	    private void SaveWindowPosition()
+	    {
+	        if (WindowState == FormWindowState.Normal)
+	        {
+	            m_rcWindow = DesktopBounds;
+	        }
+	    }
+
+
+	    // Other Events
     private void lvKeys_SelectedIndexChanged(object sender, System.EventArgs e) {
       // UI stuff (to prevent editing or deleting a non-item
       if (lvKeys.SelectedItems.Count <= 0) {
