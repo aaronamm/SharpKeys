@@ -88,12 +88,10 @@ namespace SharpKeys
 
     // button handlers - don't have to worry about null b/c they can't get to it
     private void btnOK_Click(object sender, System.EventArgs e) {
-      this.AcceptButton = btnOK;
       m_strSelected = lblKey.Text.Replace("\n", " ");
     }
 
     private void btnCancel_Click(object sender, System.EventArgs e) {
-      this.CancelButton = btnCancel;
       m_strSelected = "";
     }
 
