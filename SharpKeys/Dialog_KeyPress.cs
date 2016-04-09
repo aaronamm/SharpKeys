@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
@@ -14,11 +14,16 @@ namespace SharpKeys
 	public partial class Dialog_KeyPress : System.Windows.Forms.Form, IMessageFilter
 	{
     // passed in from the main form
-    internal Hashtable m_hashKeys = null;
+    internal Dictionary<string,string> m_hashKeys = null;
 
     // data handlers
     internal string m_strSelected = "";
     const string DISABLED_KEY = "Key is disabled\n(00_00)";
+
+	    public Dialog_KeyPress(Dictionary<string,string> hashKeys) : this()
+	    {
+	        m_hashKeys = hashKeys;
+	    }
 
 		public Dialog_KeyPress()
 		{
@@ -62,7 +67,7 @@ namespace SharpKeys
       // Look up the scan code in the hashtable
       string strShow = "";
       if (m_hashKeys != null) {
-        strShow = string.Format("{0}\n({1})", m_hashKeys[strCode], strCode);
+        strShow = string.Format("{0}\n({1})", m_hashKeys.ContainsKey(strCode) ? m_hashKeys[strCode] : null, strCode);
       }
       else {
         strShow = "Scan code: " + strCode;

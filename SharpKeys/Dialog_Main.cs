@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
 using Microsoft.Win32;
@@ -19,8 +19,8 @@ namespace SharpKeys
     // Field for registy storage
     private string m_strRegKey = @"Software\RandyRants\SharpKeys";
 
-    // Hashtable for tracking text to scan codes
-    private Hashtable m_hashKeys = null;
+    // Dictionary for tracking text to scan codes
+    private Dictionary<string,string> m_hashKeys = null;
 
     // Dirty flag (to see track if mappings have been saved)
     private bool m_bDirty = false;
@@ -87,11 +87,11 @@ namespace SharpKeys
             String strFrom, strFromCode, strTo, strToCode;
             strFromCode = string.Format("{0,2:X}_{1,2:X}", bytes[(i*4)+12+3], bytes[(i*4)+12+2]);
             strFromCode = strFromCode.Replace(" ", "0");
-            strFrom = string.Format("{0} ({1})", (string)m_hashKeys[strFromCode], strFromCode);
+            strFrom = string.Format("{0} ({1})", m_hashKeys.ContainsKey(strFromCode) ? m_hashKeys[strFromCode] : null, strFromCode);
             
             strToCode = string.Format("{0,2:X}_{1,2:X}", bytes[(i*4)+12+1], bytes[(i*4)+12+0]);
             strToCode = strToCode.Replace(" ", "0");
-            strTo = string.Format("{0} ({1})", (string)m_hashKeys[strToCode], strToCode);
+            strTo = string.Format("{0} ({1})", m_hashKeys.ContainsKey(strFromCode) ? m_hashKeys[strToCode] : null, strToCode);
             
             ListViewItem lvI = lvKeys.Items.Add(strFrom);
             lvI.SubItems.Add(strTo);
@@ -174,10 +174,9 @@ namespace SharpKeys
       }
 
       // adding a new mapping, so prep the add dialog with all of the scancodes
-      Dialog_KeyItem dlg = new Dialog_KeyItem();
-      dlg.m_hashKeys = m_hashKeys; // passed into this dialog so it can go out to the next
-      IDictionaryEnumerator iDic = m_hashKeys.GetEnumerator();
-      while (iDic.MoveNext() == true) {
+      Dialog_KeyItem dlg = new Dialog_KeyItem(m_hashKeys); // passed into this dialog so it can go out to the next
+      foreach(var iDic in m_hashKeys)
+      {
         string str = string.Format("{0} ({1})", iDic.Value, iDic.Key);
         dlg.lbFrom.Items.Add(str);
         dlg.lbTo.Items.Add(str);
@@ -222,10 +221,9 @@ namespace SharpKeys
       }
 
       // built the drop down lists no matter what
-      Dialog_KeyItem dlg = new Dialog_KeyItem();
-      dlg.m_hashKeys = m_hashKeys; // passed into this dialog so it can go out to the next
-      IDictionaryEnumerator iDic = m_hashKeys.GetEnumerator();
-      while (iDic.MoveNext() == true) {
+      Dialog_KeyItem dlg = new Dialog_KeyItem(m_hashKeys);  // passed into this dialog so it can go out to the next
+      foreach(var iDic in m_hashKeys)
+      {
         string str = string.Format("{0} ({1})", iDic.Value, iDic.Key);
         dlg.lbFrom.Items.Add(str);
         dlg.lbTo.Items.Add(str);
@@ -309,7 +307,7 @@ namespace SharpKeys
       // that most sources say are scan codes.  The 00_00 will disable a key - everything else 
       // is pretty obvious.  There is a bit of a reverse lookup however, so labels changed here
       // need to be changed in a couple of other places
-      m_hashKeys = new Hashtable();
+      m_hashKeys = new Dictionary<string, string>();
       m_hashKeys.Add("00_00", "-- Turn Key Off");
       m_hashKeys.Add("00_01", "Special: Escape");
       m_hashKeys.Add("00_02", "Key: 1 !");

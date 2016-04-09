@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -13,7 +13,12 @@ namespace SharpKeys
 	public partial class Dialog_KeyItem : System.Windows.Forms.Form
 	{
     // passed into here so it can be pushed through to type key
-    internal Hashtable m_hashKeys = null;
+    internal Dictionary<string,string> m_hashKeys = null;
+
+	    public Dialog_KeyItem(Dictionary<string,string> hashKeys) : this()
+	    {
+	        m_hashKeys = hashKeys;
+	    }
 
 		public Dialog_KeyItem()
 		{
@@ -29,8 +34,7 @@ namespace SharpKeys
 
     private void btnFrom_Click(object sender, System.EventArgs e) {
       // Pop open the "typing" form to collect keyboard input to get a valid code
-      Dialog_KeyPress dlg = new Dialog_KeyPress();
-      dlg.m_hashKeys = m_hashKeys;
+      Dialog_KeyPress dlg = new Dialog_KeyPress(m_hashKeys);
       if (dlg.ShowDialog() == DialogResult.OK) {
         if (lbFrom.Items.Contains(dlg.m_strSelected))
           lbFrom.SelectedItem = dlg.m_strSelected;
@@ -43,8 +47,7 @@ namespace SharpKeys
 
     private void btnTo_Click(object sender, System.EventArgs e) {
       // Pop open the "typing" form to collect keyboard input to get a valid code
-      Dialog_KeyPress dlg = new Dialog_KeyPress();
-      dlg.m_hashKeys = m_hashKeys;
+      Dialog_KeyPress dlg = new Dialog_KeyPress(m_hashKeys);
       if (dlg.ShowDialog() == DialogResult.OK) {
         if (lbTo.Items.Contains(dlg.m_strSelected))
           lbTo.SelectedItem = dlg.m_strSelected;
