@@ -143,6 +143,15 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SharpKeys.exe.manifest" />
+    <Compile Include="Dialog_KeyItem.Designer.cs">
+      <DependentUpon>Dialog_KeyItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog_KeyPress.Designer.cs">
+      <DependentUpon>Dialog_KeyPress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog_Main.Designer.cs">
+      <DependentUpon>Dialog_Main.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
