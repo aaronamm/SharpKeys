@@ -55,7 +55,7 @@ namespace SharpKeys
 
       // get the code from LPARAM
       // if it's more than 256 then it's an extended key and mapped to 0xE0nn
-      string strCode = "";
+      string strCode;
       if (nCode > 0x0100) {
         strCode = string.Format("E0_{0,2:X}", (nCode - 0x0100));
       }
@@ -65,7 +65,7 @@ namespace SharpKeys
       strCode = strCode.Replace(" ", "0");
 
       // Look up the scan code in the hashtable
-      string strShow = "";
+      string strShow;
       if (m_hashKeys != null) {
         strShow = string.Format("{0}\n({1})", m_hashKeys.ContainsKey(strCode) ? m_hashKeys[strCode] : null, strCode);
       }

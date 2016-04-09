@@ -84,14 +84,13 @@ namespace SharpKeys
           int nTotal = Int32.Parse(bytes[8].ToString());
           for (int i=0; i < nTotal-1; i++) {
             // scan codes are stored in ToHi ToLo FromHi FromLo
-            String strFrom, strFromCode, strTo, strToCode;
-            strFromCode = string.Format("{0,2:X}_{1,2:X}", bytes[(i*4)+12+3], bytes[(i*4)+12+2]);
+            string strFromCode = string.Format("{0,2:X}_{1,2:X}", bytes[(i*4)+12+3], bytes[(i*4)+12+2]);
             strFromCode = strFromCode.Replace(" ", "0");
-            strFrom = string.Format("{0} ({1})", m_hashKeys.ContainsKey(strFromCode) ? m_hashKeys[strFromCode] : null, strFromCode);
+            string strFrom = string.Format("{0} ({1})", m_hashKeys.ContainsKey(strFromCode) ? m_hashKeys[strFromCode] : null, strFromCode);
             
-            strToCode = string.Format("{0,2:X}_{1,2:X}", bytes[(i*4)+12+1], bytes[(i*4)+12+0]);
+            string strToCode = string.Format("{0,2:X}_{1,2:X}", bytes[(i*4)+12+1], bytes[(i*4)+12+0]);
             strToCode = strToCode.Replace(" ", "0");
-            strTo = string.Format("{0} ({1})", m_hashKeys.ContainsKey(strFromCode) ? m_hashKeys[strToCode] : null, strToCode);
+            string strTo = string.Format("{0} ({1})", m_hashKeys.ContainsKey(strFromCode) ? m_hashKeys[strToCode] : null, strToCode);
             
             ListViewItem lvI = lvKeys.Items.Add(strFrom);
             lvI.SubItems.Add(strTo);
@@ -183,8 +182,7 @@ namespace SharpKeys
       }
 
       // remove the null setting for "From" since you can never have a null key to map
-      int nPos = 0;
-      nPos = dlg.lbFrom.FindString("-- Turn Key Off (00_00)");
+      int nPos = dlg.lbFrom.FindString("-- Turn Key Off (00_00)");
       if (nPos > -1)
         dlg.lbFrom.Items.RemoveAt(nPos);
 
@@ -230,8 +228,7 @@ namespace SharpKeys
       }
 
       // remove the null setting for "From" since you can never have a null key to map
-      int nPos = 0;
-      nPos = dlg.lbFrom.FindString("-- Turn Key Off (00_00)");
+      int nPos = dlg.lbFrom.FindString("-- Turn Key Off (00_00)");
       if (nPos > -1)
         dlg.lbFrom.Items.RemoveAt(nPos);
 
