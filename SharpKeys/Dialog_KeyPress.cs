@@ -17,8 +17,8 @@ namespace SharpKeys
     internal Dictionary<string,string> m_hashKeys = null;
 
     // data handlers
-    internal string m_strSelected = "";
-    const string DISABLED_KEY = "Key is disabled\n(00_00)";
+	internal string Selected { get; set; } = "";
+	const string DISABLED_KEY = "Key is disabled\n(00_00)";
 
 	    public Dialog_KeyPress(Dictionary<string,string> hashKeys) : this()
 	    {
@@ -88,11 +88,11 @@ namespace SharpKeys
 
     // button handlers - don't have to worry about null b/c they can't get to it
     private void btnOK_Click(object sender, System.EventArgs e) {
-      m_strSelected = lblKey.Text.Replace("\n", " ");
+      Selected = lblKey.Text.Replace("\n", " ");
     }
 
     private void btnCancel_Click(object sender, System.EventArgs e) {
-      m_strSelected = "";
+      Selected = "";
     }
 
     private void Dialog_KeyPress_Paint(object sender, PaintEventArgs e) {

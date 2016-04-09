@@ -56,8 +56,8 @@ namespace SharpKeys
       // Pop open the "typing" form to collect keyboard input to get a valid code
       Dialog_KeyPress dlg = new Dialog_KeyPress(m_hashKeys);
       if (dlg.ShowDialog() == DialogResult.OK) {
-        if (lbFrom.Items.Contains(dlg.m_strSelected))
-          lbFrom.SelectedItem = dlg.m_strSelected;
+        if (lbFrom.Items.Contains(dlg.Selected))
+          lbFrom.SelectedItem = dlg.Selected;
         else {
           // probably an international keyboard code
           MessageBox.Show("You've entered a key that SharpKeys doesn't know about.\n\nPlease check the SharpKeys website for an updated release", "SharpKeys");
@@ -69,8 +69,8 @@ namespace SharpKeys
       // Pop open the "typing" form to collect keyboard input to get a valid code
       Dialog_KeyPress dlg = new Dialog_KeyPress(m_hashKeys);
       if (dlg.ShowDialog() == DialogResult.OK) {
-        if (lbTo.Items.Contains(dlg.m_strSelected))
-          lbTo.SelectedItem = dlg.m_strSelected;
+        if (lbTo.Items.Contains(dlg.Selected))
+          lbTo.SelectedItem = dlg.Selected;
         else {
           // probably an international keyboard code
           MessageBox.Show("You've entered a key that SharpKeys doesn't know about.\n\nPlease check the SharpKeys website for an updated release", "SharpKeys");
