@@ -32,6 +32,26 @@ namespace SharpKeys
 			//
 		}
 
+	    public void FillListboxes()
+	    {
+            foreach (var iDic in m_hashKeys)
+            {
+                string str = $"{iDic.Value} ({iDic.Key})";
+                this.lbFrom.Items.Add(str);
+                this.lbTo.Items.Add(str);
+            }
+        }
+
+        /// <summary>
+        /// remove the null setting for "From" since you can never have a null key to map
+        /// </summary>
+        public void DeleteNullMapping()
+	    {
+            int nPos = this.lbFrom.FindString("-- Turn Key Off (00_00)");
+            if (nPos > -1)
+                this.lbFrom.Items.RemoveAt(nPos);
+        }
+
     private void btnFrom_Click(object sender, System.EventArgs e) {
       // Pop open the "typing" form to collect keyboard input to get a valid code
       Dialog_KeyPress dlg = new Dialog_KeyPress(m_hashKeys);

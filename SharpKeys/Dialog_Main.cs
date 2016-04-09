@@ -174,21 +174,13 @@ namespace SharpKeys
 
       // adding a new mapping, so prep the add dialog with all of the scancodes
       Dialog_KeyItem dlg = new Dialog_KeyItem(m_hashKeys); // passed into this dialog so it can go out to the next
-      foreach(var iDic in m_hashKeys)
-      {
-        string str = string.Format("{0} ({1})", iDic.Value, iDic.Key);
-        dlg.lbFrom.Items.Add(str);
-        dlg.lbTo.Items.Add(str);
-      }
+      dlg.FillListboxes();
 
-      // remove the null setting for "From" since you can never have a null key to map
-      int nPos = dlg.lbFrom.FindString("-- Turn Key Off (00_00)");
-      if (nPos > -1)
-        dlg.lbFrom.Items.RemoveAt(nPos);
+      dlg.DeleteNullMapping();
 
       // Now remove any of the keys that have already been mapped in the list (can't double up on from's)
       for (int i=0; i<lvKeys.Items.Count; i++) {
-        nPos = dlg.lbFrom.FindString(lvKeys.Items[i].Text);
+        int nPos = dlg.lbFrom.FindString(lvKeys.Items[i].Text);
         if (nPos > -1)
           dlg.lbFrom.Items.RemoveAt(nPos);
       }
@@ -220,20 +212,13 @@ namespace SharpKeys
 
       // built the drop down lists no matter what
       Dialog_KeyItem dlg = new Dialog_KeyItem(m_hashKeys);  // passed into this dialog so it can go out to the next
-      foreach(var iDic in m_hashKeys)
-      {
-        string str = string.Format("{0} ({1})", iDic.Value, iDic.Key);
-        dlg.lbFrom.Items.Add(str);
-        dlg.lbTo.Items.Add(str);
-      }
+      dlg.FillListboxes();
 
-      // remove the null setting for "From" since you can never have a null key to map
-      int nPos = dlg.lbFrom.FindString("-- Turn Key Off (00_00)");
-      if (nPos > -1)
-        dlg.lbFrom.Items.RemoveAt(nPos);
+      dlg.DeleteNullMapping();
 
       // remove any of the existing from key mappings however, leave in the one that has currently
       // been selected!
+      int nPos;
       for (int i=0; i<lvKeys.Items.Count; i++) {
         nPos = dlg.lbFrom.FindString(lvKeys.Items[i].Text);
         if ((nPos > -1) && (lvKeys.Items[i].Text != lvKeys.SelectedItems[0].Text)) {
