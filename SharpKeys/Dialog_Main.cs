@@ -17,7 +17,7 @@ namespace SharpKeys
     private Rectangle m_rcWindow;
 
     // Field for registy storage
-    private string m_strRegKey = "Software\\RandyRants\\SharpKeys";
+    private string m_strRegKey = @"Software\RandyRants\SharpKeys";
 
     // Hashtable for tracking text to scan codes
     private Hashtable m_hashKeys = null;
@@ -71,7 +71,7 @@ namespace SharpKeys
       WindowState = (FormWindowState)nWinState;
 
       // now load the scan code map
-      RegistryKey regScanMapKey = Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\Control\\Keyboard Layout");
+      RegistryKey regScanMapKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Keyboard Layout");
       if (regScanMapKey != null) {
         byte[] bytes = (byte[])regScanMapKey.GetValue("Scancode Map");
         if (bytes == null) {
@@ -119,7 +119,7 @@ namespace SharpKeys
       Cursor = Cursors.WaitCursor;
 
       // Open the key to save the scancodes
-      RegistryKey regScanMapKey = Registry.LocalMachine.CreateSubKey("System\\CurrentControlSet\\Control\\Keyboard Layout");
+      RegistryKey regScanMapKey = Registry.LocalMachine.CreateSubKey(@"System\CurrentControlSet\Control\Keyboard Layout");
       if (regScanMapKey != null) {
         int nCount = lvKeys.Items.Count;
         if (nCount <= 0) {
@@ -355,7 +355,7 @@ namespace SharpKeys
       m_hashKeys.Add("00_28", "Key: ' \"");
       m_hashKeys.Add("00_29", "Key: ` ~");
       m_hashKeys.Add("00_2A", "Special: Left Shift");
-      m_hashKeys.Add("00_2B", "Key: \\ |");
+      m_hashKeys.Add("00_2B", @"Key: \ |");
       m_hashKeys.Add("00_2C", "Key: Z");
       m_hashKeys.Add("00_2D", "Key: X");
       m_hashKeys.Add("00_2E", "Key: C");
